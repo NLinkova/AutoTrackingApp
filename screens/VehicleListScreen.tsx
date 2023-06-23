@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
@@ -15,8 +16,8 @@ const VehicleListScreen: React.FC = () => {
   const [region, setRegion] = useState({
     latitude: 55.751244,
     longitude: 37.618423,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
   });
 
   const vehicles: Vehicle[] = vehicleData;
@@ -34,6 +35,18 @@ const VehicleListScreen: React.FC = () => {
   const handleVehiclePress = (vehicle: Vehicle) => {
     navigation.navigate('VehicleScreen', { vehicle });
   };
+
+  const getMarkerIcon = (category: string) => {
+    switch (category) {
+      case 'Грузовой':
+        return 'truck';
+      case 'Пассажирский':
+        return 'bus';
+      case 'Спецтранспорт':
+        return 'car-sports';
+    }
+  };
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -60,27 +73,12 @@ const VehicleListScreen: React.FC = () => {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {filteredVehicles ? (
           isMapView ? (
-
-            // <MapView style={{ flex: 1 }} >
-            //   {
-            //     filteredVehicles.map((vehicle) => (
-            //       <Marker
-            //         key={vehicle.id}
-            //         coordinate={{
-            //           latitude: vehicle.location?.latitude || 0,
-            //           longitude: vehicle.location?.longitude || 0,
-            //         }}
-            //         title={vehicle.name}
-            //         description={vehicle.driverName}
-            //       />
-            //     ))}
-            // </MapView>) : (
             <MapView style={{ height: "80%", width: "80%", borderRadius: 2, borderColor: "white", borderWidth: 2 }}
               initialRegion={{
                 latitude: 55.751244,
                 longitude: 37.618423,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1,
               }} onRegionChangeComplete={(region) => setRegion(region)} >
               {
                 filteredVehicles.map((vehicle) => (
@@ -92,7 +90,13 @@ const VehicleListScreen: React.FC = () => {
                     }}
                     title={vehicle.name}
                     description={vehicle.driverName}
-                  />
+                  >
+                    <MaterialCommunityIcons
+                      name={getMarkerIcon(vehicle.category)}
+                      size={24}
+                      color="black"
+                    />
+                  </Marker>
                 ))}
             </MapView>
           ) : (
@@ -106,7 +110,11 @@ const VehicleListScreen: React.FC = () => {
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item.id.toString()}
-            />)) : (<Text>Нет данных</Text>)
+            />
+          )
+        ) : (
+          <Text>Нет данных</Text>
+        )
         }
       </View>
     </View >
