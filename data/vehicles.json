@@ -4,69 +4,109 @@
     "name": "ТС #1",
     "driverName": "Водитель 1",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    }
   },
   {
     "id": 2,
     "name": "ТС #2",
     "driverName": "Водитель 2",
     "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 37.0522,
+      "longitude": -122.2437
+    }
   },
   {
     "id": 3,
     "name": "ТС #3",
     "driverName": "Водитель 3",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 37.7128,
+      "longitude": -122.0060
+    }
   },
   {
     "id": 4,
     "name": "ТС #5",
     "driverName": "Водитель 4",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 51.5074,
+      "longitude": -0.1278
+    }
   },
   {
     "id": 5,
     "name": "ТС #5",
     "driverName": "Водитель 5",
     "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 48.8566,
+      "longitude": 2.3522
+    }
   },
   {
     "id": 6,
     "name": "ТС #6",
     "driverName": "Водитель 6",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 55.7558,
+      "longitude": 37.6176
+    }
   },
   {
     "id": 7,
     "name": "ТС #7",
     "driverName": "Водитель 7",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 52.5200,
+      "longitude": 13.4050
+    }
   },
   {
     "id": 8,
     "name": "ТС #8",
     "driverName": "Водитель 8",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35"
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    }
   },
   {
     "id": 9,
     "name": "ТС #9",
     "driverName": "Водитель 9",
-    "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35"
+    "category": "Грузовой",
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 34.7749,
+      "longitude": -102.4194
+    }
   },
   {
     "id": 10,
     "name": "ТС #10",
     "driverName": "Водитель 10",
-    "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35"
+    "category": "Грузовой",
+    "contactNumber": "8-800-555-35-35",
+    "location": {
+      "latitude": 33.7749,
+      "longitude": -162.4194
+    }
   }
 ]

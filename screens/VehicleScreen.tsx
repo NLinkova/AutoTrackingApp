@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { StackParams } from '../App';
 
 
@@ -29,7 +30,21 @@ const VehicleScreen = ({ route }: Props) => {
       <TouchableOpacity onPress={handleSendMessage}>
         <Text>Написать</Text>
       </TouchableOpacity>
+      <MapView style={{ height: "80%", width: "80%", borderRadius: 2, borderColor: "white", borderWidth: 2 }}
+      >
+        <Marker
+
+          coordinate={{
+            latitude: vehicle.location?.latitude || 0,
+            longitude: vehicle.location?.longitude || 0,
+          }}
+          title={vehicle.name}
+          description={vehicle.driverName}
+        />
+
+      </MapView>
     </View>
+
   );
 };
 
