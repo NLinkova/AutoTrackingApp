@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "ТС #1",
+    "driverName": "Водитель 1",
+    "category": "Грузовой",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 2,
+    "name": "ТС #2",
+    "driverName": "Водитель 2",
+    "category": "Пассажирский",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 3,
+    "name": "ТС #3",
+    "driverName": "Водитель 3",
+    "category": "Спецтранспорт",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 4,
+    "name": "ТС #5",
+    "driverName": "Водитель 4",
+    "category": "Спецтранспорт",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 5,
+    "name": "ТС #5",
+    "driverName": "Водитель 5",
+    "category": "Пассажирский",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 6,
+    "name": "ТС #6",
+    "driverName": "Водитель 6",
+    "category": "Грузовой",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 7,
+    "name": "ТС #7",
+    "driverName": "Водитель 7",
+    "category": "Спецтранспорт",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 8,
+    "name": "ТС #8",
+    "driverName": "Водитель 8",
+    "category": "Грузовой",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 9,
+    "name": "ТС #9",
+    "driverName": "Водитель 9",
+    "category": "Пассажирский",
+    "contactNumber": "8-800-555-35-35"
+  },
+  {
+    "id": 10,
+    "name": "ТС #10",
+    "driverName": "Водитель 10",
+    "category": "Пассажирский",
+    "contactNumber": "8-800-555-35-35"
+  }
+]
