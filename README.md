@@ -13,16 +13,8 @@ Info.plist for iOS
 
 ## Run the app:
 
-For Android:
-
-arduino
-Copy code
 npx react-native run-android
 
-## For iOS:
-
-arduino
-Copy code
 npx react-native run-ios
 
 # Features
