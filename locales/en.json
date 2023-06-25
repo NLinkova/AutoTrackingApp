@@ -1,0 +1,14 @@
+{
+  "title": "Vehicle List",
+  "cargo": "Cargo",
+  "passenger": "Passenger",
+  "special": "Special",
+  "all": "All",
+  "listView": "List View",
+  "mapView": "Map View",
+  "noData": "No data",
+  "name": "Name",
+  "driver": "Driver",
+  "category": "Category",
+  "contact": "Contact"
+}

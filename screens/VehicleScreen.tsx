@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -19,24 +20,33 @@ const VehicleScreen = ({ route }: Props) => {
     Linking.openURL(`whatsapp://send?text=${message}&phone=${vehicle.contactNumber}`);
   };
 
+  const getMarkerIcon = (category: string) => {
+    switch (category) {
+      case 'Грузовой':
+        return 'truck';
+      case 'Пассажирский':
+        return 'bus';
+      case 'Спецтранспорт':
+        return 'car-sports';
+    }
+  };
+
   return (
-    <View>
-      <Text>Категория ТС: {vehicle.category}</Text>
-      <Text>Имя водителя: {vehicle.driverName}</Text>
-      <Text>Контактный номер водителя: {vehicle.contactNumber}</Text>
+    <View style={styles.listContainer}>
+      <View style={styles.listItemContainer}>
+        <Text style={styles.listItemText}>Категория ТС: {vehicle.category}</Text>
+        <Text style={styles.listItemText}>Имя водителя: {vehicle.driverName}</Text>
+        <Text style={styles.listItemText}>Контактный номер водителя: {vehicle.contactNumber}</Text>
+      </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20, marginVertical: 20 }}>
         <Pressable style={styles.button} onPress={handleCallDriver}>
-          <Text style={styles.text}>Позвонить</Text>
+          <Text style={styles.buttonText}>Позвонить</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={handleSendMessage}>
-          <Text style={styles.text}>Написать</Text>
+          <Text style={styles.buttonText}>Написать</Text>
         </Pressable>
       </View>
-      <MapView style={{
-        height: "60%",
-        width: "80%", borderRadius: 2, borderColor: "white",
-        borderWidth: 2
-      }}
+      <MapView style={styles.mapView}
         initialRegion={{
           latitude: 55.751244,
           longitude: 37.618423,
@@ -45,15 +55,19 @@ const VehicleScreen = ({ route }: Props) => {
         }}
       >
         <Marker
-
           coordinate={{
             latitude: vehicle.location?.latitude || 0,
             longitude: vehicle.location?.longitude || 0,
           }}
           title={vehicle.name}
           description={vehicle.driverName}
-        />
-
+        >
+          <MaterialCommunityIcons
+            name={getMarkerIcon(vehicle.category)}
+            size={24}
+            color="black"
+          />
+        </Marker>
       </MapView>
     </View>
 
@@ -63,6 +77,29 @@ const VehicleScreen = ({ route }: Props) => {
 export default VehicleScreen;
 
 const styles = StyleSheet.create({
+  listContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  listItemContainer: {
+    marginBottom: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    padding: 16,
+    elevation: 2,
+  },
+  listItemText: {
+    fontSize: 16,
+    color: '#000000',
+  },
+  mapView: {
+    height: '50%',
+    width: '80%',
+    borderRadius: 2,
+    borderColor: '#FFFFFF',
+    borderWidth: 2,
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -72,7 +109,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: '#2196F3',
   },
-  text: {
+  buttonText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'bold',

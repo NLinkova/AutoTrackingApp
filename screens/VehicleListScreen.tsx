@@ -22,7 +22,6 @@ const VehicleListScreen: React.FC = () => {
 
   const vehicles: Vehicle[] = vehicleData;
 
-
   const filteredVehicles = selectedFilter === 'Все' ? vehicles : vehicles.filter(vehicle => vehicle.category === selectedFilter);
   const handleFilterChange = (filter: string) => {
     setSelectedFilter(filter);
@@ -47,33 +46,31 @@ const VehicleListScreen: React.FC = () => {
     }
   };
 
-
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <View style={styles.filterContainer}>
         <TouchableOpacity onPress={() => handleFilterChange('Грузовой')}>
-          <Text>Грузовой</Text>
+          <Text style={styles.filterText}>Грузовой</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleFilterChange('Пассажирский')}>
-          <Text>Пассажирский</Text>
+          <Text style={styles.filterText} >Пассажирский</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleFilterChange('Спецтранспорт')}>
-          <Text>Спецтранспорт</Text>
+          <Text style={styles.filterText}>Спецтранспорт</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleFilterChange('Все')}>
-          <Text>Все</Text>
+          <Text style={styles.filterText}>Все</Text>
         </TouchableOpacity>
       </View>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 16 }}>
+      <View style={styles.mapSwitcher}>
         <Text>List View</Text>
         <Switch value={isMapView} onValueChange={handleSwitchToggle} />
         <Text>Map View</Text>
       </View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.listContainer}>
         {filteredVehicles ? (
           isMapView ? (
-            <MapView style={{ height: "80%", width: "80%", borderRadius: 2, borderColor: "white", borderWidth: 2 }}
+            <MapView style={styles.mapView}
               initialRegion={{
                 latitude: 55.751244,
                 longitude: 37.618423,
@@ -90,6 +87,7 @@ const VehicleListScreen: React.FC = () => {
                     }}
                     title={vehicle.name}
                     description={vehicle.driverName}
+                    onPress={() => handleVehiclePress(vehicle)}
                   >
                     <MaterialCommunityIcons
                       name={getMarkerIcon(vehicle.category)}
@@ -103,10 +101,10 @@ const VehicleListScreen: React.FC = () => {
             <FlatList
               data={filteredVehicles}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleVehiclePress(item)} style={{ marginBottom: 16 }}>
-                  <Text>Название ТС: {item.name}</Text>
-                  <Text>Имя водителя: {item.driverName}</Text>
-                  <Text>Категория ТС: {item.category}</Text>
+                <TouchableOpacity onPress={() => handleVehiclePress(item)} style={styles.listItemContainer}>
+                  <Text style={styles.listItemText}>Название ТС: {item.name}</Text>
+                  <Text style={styles.listItemText}>Имя водителя: {item.driverName}</Text>
+                  <Text style={styles.listItemText}>Категория ТС: {item.category}</Text>
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item.id.toString()}
@@ -125,12 +123,54 @@ const VehicleListScreen: React.FC = () => {
 export default VehicleListScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8F8F8',
+  },
   filterContainer: {
-    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    elevation: 2,
+  },
+  filterText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  mapSwitcher: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginVertical: 10,
+    marginRight: 20,
+    gap: 10
+  },
+  mapView: {
+    height: '80%',
+    width: '80%',
+    borderRadius: 2,
+    borderColor: '#FFFFFF',
+    borderWidth: 2,
+  },
+  listContainer: {
+    flex: 1, alignItems: "center", justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  listItemContainer: {
+    marginBottom: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    padding: 16,
+    elevation: 2,
+  },
+  listItemText: {
+    fontSize: 16,
+    color: '#000000',
   },
 });
