@@ -15,7 +15,7 @@
     "name": "ТС #2",
     "driverName": "Водитель 2",
     "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-444-35-35",
     "location": {
       "latitude": 55.7658,
       "longitude": 37.6576
@@ -26,7 +26,7 @@
     "name": "ТС #3",
     "driverName": "Водитель 3",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-555-55-35",
     "location": {
       "latitude": 55.7558,
       "longitude": 37.6886
@@ -37,7 +37,7 @@
     "name": "ТС #5",
     "driverName": "Водитель 4",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-555-77-35",
     "location": {
       "latitude": 55.7658,
       "longitude": 37.6376
@@ -48,7 +48,7 @@
     "name": "ТС #5",
     "driverName": "Водитель 5",
     "category": "Пассажирский",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-222-35-35",
     "location": {
       "latitude": 55.7768,
       "longitude": 37.6466
@@ -59,7 +59,7 @@
     "name": "ТС #6",
     "driverName": "Водитель 6",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-333-555-35-35",
     "location": {
       "latitude": 55.7558,
       "longitude": 37.6176
@@ -70,7 +70,7 @@
     "name": "ТС #7",
     "driverName": "Водитель 7",
     "category": "Спецтранспорт",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-999-35-35",
     "location": {
       "latitude": 55.7758,
       "longitude": 37.6166
@@ -81,7 +81,7 @@
     "name": "ТС #8",
     "driverName": "Водитель 8",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-800-777-35-35",
     "location": {
       "latitude": 55.7778,
       "longitude": 37.6222
@@ -92,7 +92,7 @@
     "name": "ТС #9",
     "driverName": "Водитель 9",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-555-555-35-35",
     "location": {
       "latitude": 55.7654,
       "longitude": 37.6176
@@ -103,7 +103,7 @@
     "name": "ТС #10",
     "driverName": "Водитель 10",
     "category": "Грузовой",
-    "contactNumber": "8-800-555-35-35",
+    "contactNumber": "8-098-555-35-35",
     "location": {
       "latitude": 55.7444,
       "longitude": 37.6222

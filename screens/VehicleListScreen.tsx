@@ -1,29 +1,52 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
-
+import MapView from 'react-native-maps';
+import MapMarker from '../components/MapMarker';
+import VehicleCard from '../components/VehicleCard';
+import { initialRegion } from '../data/region';
 import vehicleData from '../data/vehicles.json';
-import { Vehicle } from '../types/vehicle';
+import { Vehicle, VehicleCategory } from '../types/vehicle';
 
+//компонент экрана со списком транспортных средств
+//принимает на вход массив транспортных средств
+//при нажатии на карточку транспортного средства открывает экран с подробной информацией о нем
 
-const VehicleListScreen: React.FC = () => {
+const VehicleListScreen = ({ }) => {
   const navigation = useNavigation();
-  const [selectedFilter, setSelectedFilter] = useState<string>('Все');
-  const [isMapView, setIsMapView] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<VehicleCategory | 'Все'>('Все');; //фильтр по категории. по умолчанию показываются все ТС
+  const [isMapView, setIsMapView] = useState<boolean>(false); //переключатель между списком и картой. по умолчанию показывается список
   const [region, setRegion] = useState({
     latitude: 55.751244,
     longitude: 37.618423,
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
-  });
+  }); //регион для карты. по умолчанию - центр Москвы
 
-  const vehicles: Vehicle[] = vehicleData;
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
+
+  const fetchVehicles = async () => {
+    // тут должен быть запрос к API
+    try {
+      // const response = await fetch('https://api.example.com/vehicles');
+      // const data = await response.json();
+      // setVehicles(data);
+
+      // в этом приложении используется локальный файл с данными
+      setVehicles(vehicleData);
+    } catch (error) {
+      console.log('Error fetching vehicles:', error);
+    }
+  };
+
 
   const filteredVehicles = selectedFilter === 'Все' ? vehicles : vehicles.filter(vehicle => vehicle.category === selectedFilter);
-  const handleFilterChange = (filter: string) => {
+  const handleFilterChange = (filter: VehicleCategory | 'Все') => {
     setSelectedFilter(filter);
   };
 
@@ -35,32 +58,20 @@ const VehicleListScreen: React.FC = () => {
     navigation.navigate('VehicleScreen', { vehicle });
   };
 
-  const getMarkerIcon = (category: string) => {
-    switch (category) {
-      case 'Грузовой':
-        return 'truck';
-      case 'Пассажирский':
-        return 'bus';
-      case 'Спецтранспорт':
-        return 'car-sports';
-    }
-  };
+
 
   return (
     <View style={styles.container}>
       <View style={styles.filterContainer}>
-        <TouchableOpacity onPress={() => handleFilterChange('Грузовой')}>
-          <Text style={styles.filterText}>Грузовой</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleFilterChange('Пассажирский')}>
-          <Text style={styles.filterText} >Пассажирский</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleFilterChange('Спецтранспорт')}>
-          <Text style={styles.filterText}>Спецтранспорт</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleFilterChange('Все')}>
-          <Text style={styles.filterText}>Все</Text>
-        </TouchableOpacity>
+        {["Все", ...Object.values(VehicleCategory)].map(category => (
+          <TouchableOpacity
+            key={category}
+            onPress={() => handleFilterChange(category as VehicleCategory)}
+            style={selectedFilter === category ? styles.selectedFilterButton : styles.filterButton}
+          >
+            <Text style={styles.filterText}>{category}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <View style={styles.mapSwitcher}>
         <Text>List View</Text>
@@ -71,41 +82,17 @@ const VehicleListScreen: React.FC = () => {
         {filteredVehicles ? (
           isMapView ? (
             <MapView style={styles.mapView}
-              initialRegion={{
-                latitude: 55.751244,
-                longitude: 37.618423,
-                latitudeDelta: 0.1,
-                longitudeDelta: 0.1,
-              }} onRegionChangeComplete={(region) => setRegion(region)} >
+              initialRegion={initialRegion} onRegionChangeComplete={(region) => setRegion(region)} >
               {
                 filteredVehicles.map((vehicle) => (
-                  <Marker
-                    key={vehicle.id}
-                    coordinate={{
-                      latitude: vehicle.location?.latitude || 0,
-                      longitude: vehicle.location?.longitude || 0,
-                    }}
-                    title={vehicle.name}
-                    description={vehicle.driverName}
-                    onPress={() => handleVehiclePress(vehicle)}
-                  >
-                    <MaterialCommunityIcons
-                      name={getMarkerIcon(vehicle.category)}
-                      size={24}
-                      color="black"
-                    />
-                  </Marker>
+                  <MapMarker key={vehicle.id} vehicle={vehicle} onPress={() => handleVehiclePress(vehicle)} />
                 ))}
             </MapView>
           ) : (
             <FlatList
               data={filteredVehicles}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleVehiclePress(item)} style={styles.listItemContainer}>
-                  <Text style={styles.listItemText}>Название ТС: {item.name}</Text>
-                  <Text style={styles.listItemText}>Имя водителя: {item.driverName}</Text>
-                  <Text style={styles.listItemText}>Категория ТС: {item.category}</Text>
-                </TouchableOpacity>
+                <VehicleCard onPress={() => handleVehiclePress(item)} vehicle={item} />
               )}
               keyExtractor={(item) => item.id.toString()}
             />
@@ -132,7 +119,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
-    paddingHorizontal: 16,
     paddingVertical: 8,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
@@ -143,6 +129,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000000',
   },
+  filterButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  selectedFilterButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: '#7ab9e9',
+    borderRadius: 8,
+  },
+
   mapSwitcher: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

@@ -1,4 +1,9 @@
-export type VehicleCategory = "Грузовой" | "Пассажирский" | "Спецтранспорт";
+export enum VehicleCategory {
+  Cargo = "Грузовой",
+  Passenger = "Пассажирский",
+  Special = "Спецтранспорт",
+}
+
 export interface Vehicle {
   id: number;
   name: string;

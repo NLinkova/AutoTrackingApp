@@ -4,6 +4,9 @@ import React from 'react';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { StackParams } from '../App';
+import VehicleCard from '../components/VehicleCard';
+import { messageText } from '../data/message';
+import { VehicleCategory } from '../types/vehicle';
 
 
 type Props = NativeStackScreenProps<StackParams, 'VehicleScreen'>;
@@ -16,28 +19,26 @@ const VehicleScreen = ({ route }: Props) => {
   };
 
   const handleSendMessage = () => {
-    const message = encodeURIComponent('Добрый день, подскажите пожалуйста, какой номер заказа у вас сейчас в работе');
+    const message = encodeURIComponent(messageText);
     Linking.openURL(`whatsapp://send?text=${message}&phone=${vehicle.contactNumber}`);
   };
 
-  const getMarkerIcon = (category: string) => {
+  const getMarkerIcon = (category: VehicleCategory): string => {
     switch (category) {
-      case 'Грузовой':
+      case VehicleCategory.Cargo:
         return 'truck';
-      case 'Пассажирский':
+      case VehicleCategory.Passenger:
         return 'bus';
-      case 'Спецтранспорт':
+      case VehicleCategory.Special:
         return 'car-sports';
+      default:
+        return '';
     }
   };
 
   return (
     <View style={styles.listContainer}>
-      <View style={styles.listItemContainer}>
-        <Text style={styles.listItemText}>Категория ТС: {vehicle.category}</Text>
-        <Text style={styles.listItemText}>Имя водителя: {vehicle.driverName}</Text>
-        <Text style={styles.listItemText}>Контактный номер водителя: {vehicle.contactNumber}</Text>
-      </View>
+      <VehicleCard vehicle={vehicle} />
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20, marginVertical: 20 }}>
         <Pressable style={styles.button} onPress={handleCallDriver}>
           <Text style={styles.buttonText}>Позвонить</Text>
@@ -63,7 +64,7 @@ const VehicleScreen = ({ route }: Props) => {
           description={vehicle.driverName}
         >
           <MaterialCommunityIcons
-            name={getMarkerIcon(vehicle.category)}
+            name={getMarkerIcon(vehicle.category) as any}
             size={24}
             color="black"
           />
