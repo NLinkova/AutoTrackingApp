@@ -13,7 +13,7 @@ import { Vehicle, VehicleCategory } from '../types/vehicle';
 //принимает на вход массив транспортных средств
 //при нажатии на карточку транспортного средства открывает экран с подробной информацией о нем
 
-const VehicleListScreen = ({ }) => {
+const VehicleListScreen = () => {
   const navigation = useNavigation();
   const [selectedFilter, setSelectedFilter] = useState<VehicleCategory | 'Все'>('Все');; //фильтр по категории. по умолчанию показываются все ТС
   const [isMapView, setIsMapView] = useState<boolean>(false); //переключатель между списком и картой. по умолчанию показывается список
@@ -84,8 +84,9 @@ const VehicleListScreen = ({ }) => {
             <MapView style={styles.mapView}
               initialRegion={initialRegion} onRegionChangeComplete={(region) => setRegion(region)} >
               {
-                filteredVehicles.map((vehicle) => (
-                  <MapMarker key={vehicle.id} vehicle={vehicle} onPress={() => handleVehiclePress(vehicle)} />
+                filteredVehicles.map((item) => (
+                  <MapMarker key={item.id} vehicle={item}
+                    onPress={() => handleVehiclePress(item)} />
                 ))}
             </MapView>
           ) : (

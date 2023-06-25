@@ -32,7 +32,7 @@ const MapMarker = ({ vehicle, onPress }: MapMarkerProps) => {
       }}
       title={vehicle.name}
       description={vehicle.driverName}
-      onPress={() => onPress}
+      onPress={onPress}
     >
       <MaterialCommunityIcons
         name={getMarkerIcon(vehicle.category)}

@@ -1,17 +1,21 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
 import React from 'react';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { StackParams } from '../App';
+import MapMarker from '../components/MapMarker';
 import VehicleCard from '../components/VehicleCard';
 import { messageText } from '../data/message';
 import { VehicleCategory } from '../types/vehicle';
 
 
-type Props = NativeStackScreenProps<StackParams, 'VehicleScreen'>;
+type VehicleScreenRouteProp = RouteProp<StackParams, 'VehicleScreen'>;
 
-const VehicleScreen = ({ route }: Props) => {
+type VehicleScreenProps = {
+  route: VehicleScreenRouteProp;
+};
+
+const VehicleScreen = ({ route }: VehicleScreenProps) => {
   const { vehicle } = route.params;
 
   const handleCallDriver = () => {
@@ -55,20 +59,7 @@ const VehicleScreen = ({ route }: Props) => {
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
-          coordinate={{
-            latitude: vehicle.location?.latitude || 0,
-            longitude: vehicle.location?.longitude || 0,
-          }}
-          title={vehicle.name}
-          description={vehicle.driverName}
-        >
-          <MaterialCommunityIcons
-            name={getMarkerIcon(vehicle.category) as any}
-            size={24}
-            color="black"
-          />
-        </Marker>
+        <MapMarker vehicle={vehicle} />
       </MapView>
     </View>
 
